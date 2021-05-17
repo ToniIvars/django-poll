@@ -1,0 +1,16 @@
+{% extends 'authentication/base.html' %}
+
+{% block title %} Signup {% endblock %}
+
+{% block content %}
+<form action="" method="POST" class="text-center border border-dark p-3 rounded-lg">
+    {% csrf_token %}
+    <table>
+        <tbody class="text-right">
+            {{form.as_table}}
+        </tbody>
+    </table>
+    <input type="submit" value="Signup" class="btn btn-primary">
+    <p class="mt-2 mb-0"><a href="{% url 'login' %}">Login</a> now if you have an account.</p>
+</form>
+{% endblock %}

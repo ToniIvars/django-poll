@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='main_index'),
-    path('my-polls/', include('my_polls.urls'))
+    path('my-polls/', include('my_polls.urls')),
+    path('auth/', include('authentication.urls'))
 ]
