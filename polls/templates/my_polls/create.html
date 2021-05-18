@@ -1,0 +1,38 @@
+{% extends 'my_polls/base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %} Create poll {% endblock %}
+
+{% block script %} <script src="{% static 'my_polls/create.js' %}"></script> {% endblock %}
+
+{% block content %}
+<h1 class="mb-3 text-center">Create a new poll</h1>
+<form action="" method="POST" class="text-center w-100" id="create-form">
+    {% csrf_token %}
+    <input type="text" name="title" id="title" placeholder="Poll title" class="form-control" required>
+
+    <div class="d-none mt-4" id="question-mold">
+        <input type="text" placeholder="Question title" class="form-control" required>
+        <input type="text" class="answer form-control" placeholder="Answer title" class="form-control" required>
+        <input type="text" class="answer form-control" placeholder="Answer title" class="form-control" required>
+        <input type="text" class="answer form-control" placeholder="Answer title (not required)" class="form-control">
+        <input type="text" class="answer form-control" placeholder="Answer title (not required)" class="form-control">
+    </div>
+
+    <div class="question mt-4" id="question-1">
+        <input type="text" name="question_title_1" placeholder="Question title" class="form-control" required>
+        <input type="text" name="answer_1_1" class="answer form-control" placeholder="Answer title" class="form-control" required>
+        <input type="text" name="answer_1_2" class="answer form-control" placeholder="Answer title" class="form-control" required>
+        <input type="text" name="answer_1_3" class="answer form-control" placeholder="Answer title (not required)" class="form-control">
+        <input type="text" name="answer_1_4" class="answer form-control" placeholder="Answer title (not required)" class="form-control">
+    </div>
+
+    <div class="w-100 d-flex flex-wrap justify-content-between mt-4">
+        <button class="btn btn-success" id="add-question" type="button">Add question</button>
+        <button class="btn btn-danger" id="remove-question" type="button" disabled>Remove last question</button>
+    </div>
+
+    <input type="submit" value="Create" class="btn btn-primary mt-3" id="submit-button">
+</form>
+{% endblock %}
