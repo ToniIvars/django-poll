@@ -16,9 +16,8 @@
             <h4 class="card-title">{{poll.title}}</h4>
             <p class="card-text">Questions: {{poll.questions.all|length}}</p>
 
-            <div class="d-flex justify-content-around">
-                <a href="{% url 'edit_poll' %}" class="btn btn-warning">Edit</a>
-                <a href="{% url 'delete_poll' %}" class="btn btn-danger">Delete</a>
+            <div class="text-center">
+                <a href="{% url 'delete_poll' id=poll.id %}" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

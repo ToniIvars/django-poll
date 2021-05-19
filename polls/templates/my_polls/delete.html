@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Delete {% endblock %}
+
+{% block content %}
+<h1 class="text-center">Delete poll {{id}}</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>Do you want to delete the poll definitively?</p>
+    <input type="submit" value="Yes" class="btn btn-danger mr-3">
+    <a href="{% url 'my_polls_index' %}" class="btn btn-success ml-3">No</a>
+</form>
+{% endblock %}

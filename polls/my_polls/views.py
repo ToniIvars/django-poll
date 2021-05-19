@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 from .models import Poll, PollQuestion, PollAnswer
 from django.contrib.auth.models import User
@@ -44,3 +46,15 @@ def create_poll(request):
         return redirect('my_polls_index')
 
     return render(request, 'my_polls/create.html')
+
+@login_required
+def delete_poll(request, id):
+    poll = get_object_or_404(Poll, id=id)
+
+    if request.method == 'POST':
+        poll.delete()
+
+        messages.success(request, 'Poll deleted successfully')
+        return redirect('my_polls_index')
+    
+    return render(request, 'my_polls/delete.html', {'id':poll.id})
