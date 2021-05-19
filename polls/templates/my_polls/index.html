@@ -1,8 +1,27 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} My polls {% endblock %}
 
+{% block style %} <link rel="stylesheet" href="{% static 'my_polls/index.css' %}"> {% endblock %}
+
 {% block content %}
-<h1 class="text-center">These are the polls you have created</h1>
+<h1 class="text-center">Polls you have created</h1>
 <a href="{% url 'create_poll' %}" class="btn btn-success mt-2">Create a new poll</a>
+
+<div class="d-flex flex-wrap justify-content-center">
+    {% for poll in polls %}
+    <div class="poll-card card mx-3 mt-4">
+        <div class="card-body">
+            <h4 class="card-title">{{poll.title}}</h4>
+            <p class="card-text">Questions: {{poll.questions.all|length}}</p>
+
+            <div class="d-flex justify-content-around">
+                <a href="{% url 'edit_poll' %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'delete_poll' %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 # Create your views here.
 @login_required
 def index(request):
-    return render(request, 'my_polls/index.html')
+    polls = Poll.objects.filter(author=User.objects.get(id=request.user.id))
+    return render(request, 'my_polls/index.html', {'polls':polls})
 
 @login_required
 def create_poll(request):
@@ -40,6 +41,6 @@ def create_poll(request):
             except:
                 break
         
-        return redirect('main_index')
+        return redirect('my_polls_index')
 
     return render(request, 'my_polls/create.html')
