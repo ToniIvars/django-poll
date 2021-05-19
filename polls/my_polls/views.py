@@ -51,6 +51,10 @@ def create_poll(request):
 def delete_poll(request, id):
     poll = get_object_or_404(Poll, id=id)
 
+    if poll.author.id != request.user.id:
+        messages.error(request, 'You cannot delete a poll that is not yours!')
+        return redirect('my_polls_index')
+
     if request.method == 'POST':
         poll.delete()
 
