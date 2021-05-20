@@ -17,7 +17,8 @@
             <p class="card-text">Questions: {{poll.questions.all|length}}</p>
 
             <div class="text-center">
-                <a href="{% url 'delete_poll' id=poll.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'delete_poll' id=poll.id %}" class="btn btn-danger mx-2">Delete</a>
+                <a href="{% url 'poll_statics' id=poll.id %}" class="btn btn-primary mx-2">Statics</a>
             </div>
         </div>
     </div>

@@ -1,7 +1,6 @@
 .poll-card {
-    width: 25%;
-    min-width: 250px;
-    max-width: 500px;
+    width: 100%;
+    max-width: 325px;
 }
 
 .poll-link {

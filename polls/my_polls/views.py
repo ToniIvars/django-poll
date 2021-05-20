@@ -62,3 +62,13 @@ def delete_poll(request, id):
         return redirect('my_polls_index')
     
     return render(request, 'my_polls/delete.html', {'id':poll.id})
+
+@login_required
+def poll_statics(request, id):
+    poll = get_object_or_404(Poll, id=id)
+
+    if poll.author.id != request.user.id:
+        messages.error(request, 'You cannot view the poll statics of a poll that is not yours')
+        return redirect('my_polls_index')
+
+    return render(request, 'my_polls/statics.html', {'poll':poll})
