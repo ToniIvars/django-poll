@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Answer poll {% endblock %}
+
+{% block style %} <link rel="stylesheet" href="{% static 'polls/answer.css' %}"> {% endblock %}
+{% block script %} <script src="{% static 'polls/answer.js' %}"></script> {% endblock %}
+
+{% block content %}
+<h1 class="text-center">{{poll.title}}</h1>
+
+{% for question in poll.questions.all %}
+<div class="question-container mx-auto {% if forloop.counter > 1 %}d-none{% endif %}" id="question-{{forloop.counter}}">
+    <h2 class="question-title">{{question.title}}</h2>
+    {% for answer in question.answers.all %}
+    <button data-answer="ans-{{forloop.counter}}" class="btn btn-outline-dark btn-block my-2">{{answer.answer}}</button>
+    {% endfor %}
+</div>
+{% endfor %}
+
+<div id="finish-div" class="d-none mt-4">
+    <h2 class="question-title mb-2">You have finished the poll!</h2>
+    <form action="" method="post"> {% csrf_token %}
+        <button type="button" id="finish-button" class="btn btn-success">Send results</button>
+    </form>
+</div>
+
+{% endblock %}

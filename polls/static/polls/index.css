@@ -1,0 +1,14 @@
+.poll-card {
+    width: 25%;
+    min-width: 250px;
+    max-width: 500px;
+}
+
+.poll-link {
+    color: #343A40;
+}
+
+.poll-link:hover {
+    color: #6e7275;
+    text-decoration: none;
+}
