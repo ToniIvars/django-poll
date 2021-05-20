@@ -18,6 +18,8 @@
             <p class="card-text">Author: {{poll.author}}</p>
         </div>
     </div>
+    {% empty %}
+    <h2 class="mt-2">There are no polls available</h2>
     {% endfor %}
 </div>
 {% endblock %}

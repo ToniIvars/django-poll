@@ -1,5 +1,9 @@
+{% load static %}
+
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3 py-0">
-    <a class="navbar-brand" href="{% url 'main_index' %}" style="font-size: 2.25rem;">POLLS</a>
+    <a class="navbar-brand" href="{% url 'main_index' %}">
+      <img src="{% static 'logo.svg' %}" alt="Polls" width="150" class="my-1">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-part" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
