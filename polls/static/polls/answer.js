@@ -6,12 +6,20 @@ document.addEventListener('DOMContentLoaded', function() {
     function hide_question(id) {
         for (let index = 0; index < questions.length; index++) {
             if (questions[index].id == id) {
-                questions[index].classList.add('d-none')
-                try {
-                    questions[index+1].classList.remove('d-none')
-                } catch (error) {
-                    document.getElementById('finish-div').classList.remove('d-none')
-                }
+                questions[index].classList.remove('fade-in')
+                questions[index].classList.add('fade-out')
+                
+                setTimeout(function () {
+                    questions[index].classList.add('d-none')
+
+                    try {
+                        questions[index+1].classList.remove('d-none')
+                        questions[index+1].classList.add('fade-in')
+                    } catch (error) {
+                        document.getElementById('finish-div').classList.remove('d-none')
+                        document.getElementById('finish-div').classList.add('fade-in')
+                    }
+                }, 1000)
             }
         }
     }

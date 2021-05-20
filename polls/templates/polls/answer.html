@@ -10,7 +10,7 @@
 <h1 class="text-center">{{poll.title}}</h1>
 
 {% for question in poll.questions.all %}
-<div class="question-container mx-auto {% if forloop.counter > 1 %}d-none{% endif %}" id="question-{{forloop.counter}}">
+<div class="question-container mx-auto mt-4 {% if forloop.counter > 1 %}d-none{% endif %}" id="question-{{forloop.counter}}">
     <h2 class="question-title">{{question.title}}</h2>
     {% for answer in question.answers.all %}
     <button data-answer="ans-{{forloop.counter}}" class="btn btn-outline-dark btn-block my-2">{{answer.answer}}</button>
