@@ -9,7 +9,9 @@ from django.contrib.auth.models import User
 # Create your views here.
 @login_required
 def index(request):
-    last_polls = Poll.objects.exclude(author=User.objects.get(id=request.user.id)).order_by('-id')[:9]
+    user = User.objects.get(id=request.user.id)
+    last_polls = Poll.objects.exclude(author=user).exclude(answered_by__username__exact=user.username).order_by('-id')[:9]
+
     return render(request, 'polls/index.html', {'polls':last_polls})
 
 @login_required
@@ -20,9 +22,12 @@ def answer_poll(request, id):
         messages.error(request, 'You cannot answer your own poll!')
         return redirect('main_index')
     
+    if request.user.id in [ans_user.id for ans_user in poll.answered_by.all()]:
+        messages.error(request, 'You have already answered this poll')
+        return redirect('main_index')
+    
     if request.method == 'POST':
         questions = poll.questions.all()
-        print(questions)
 
         for i in range(len(questions)):
             answer_voted_num = int(request.POST[f'question-{i+1}'][-1])
@@ -30,7 +35,9 @@ def answer_poll(request, id):
             answer_voted.votes += 1
             answer_voted.save()
 
-        messages.success(request, 'Your answerd to the poll have been sent correctly')
+        poll.answered_by.add(User.objects.get(id=request.user.id))
+
+        messages.success(request, 'Your answer to the poll have been sent correctly')
         return redirect('main_index')
 
     return render(request, 'polls/answer.html', {'poll':poll})

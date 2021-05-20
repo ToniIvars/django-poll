@@ -6,6 +6,7 @@ class Poll(models.Model):
     title = models.CharField(max_length=100, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
     questions = models.ManyToManyField('PollQuestion', related_name='questions')
+    answered_by = models.ManyToManyField(User, related_name='answered_by')
 
     def __str__(self):
         return f'{self.title} by {self.author}'
