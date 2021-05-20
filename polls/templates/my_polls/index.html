@@ -4,6 +4,7 @@
 {% block title %} My polls {% endblock %}
 
 {% block style %} <link rel="stylesheet" href="{% static 'my_polls/index.css' %}"> {% endblock %}
+{% block script %} <script src="{% static 'my_polls/index.js' %}"></script> {% endblock %}
 
 {% block content %}
 <h1 class="text-center">Polls you have created</h1>
@@ -13,8 +14,14 @@
     {% for poll in polls %}
     <div class="poll-card card mx-3 mt-4">
         <div class="card-body">
-            <h4 class="card-title">{{poll.title}}</h4>
-            <p class="card-text">Questions: {{poll.questions.all|length}}</p>
+            <h4 class="card-title mb-0">{{poll.title}}</h4>
+
+            <button class="share-button my-0 text-primary" data-poll-id="{{poll.id}}">
+                Share me! <span><img src="{% static 'my_polls/share.svg' %}" alt="Share" style="width: 1rem;"></span>
+            </button>
+            <p class="text-success mt-1 mb-0 d-none success-message">URL copied successfully!</p>
+
+            <p class="card-text mt-2">Questions: {{poll.questions.all|length}}</p>
 
             <div class="text-center">
                 <a href="{% url 'delete_poll' id=poll.id %}" class="btn btn-danger mx-2">Delete</a>

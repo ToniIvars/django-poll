@@ -2,3 +2,8 @@
     width: 100%;
     max-width: 325px;
 }
+
+.share-button {
+    background: none;
+    border: none;
+}
