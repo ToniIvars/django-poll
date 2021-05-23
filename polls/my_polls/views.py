@@ -10,7 +10,16 @@ from django.contrib.auth.models import User
 @login_required
 def index(request):
     polls = Poll.objects.filter(author=User.objects.get(id=request.user.id))
-    return render(request, 'my_polls/index.html', {'polls':polls})
+
+    answered_by = []
+    for poll in polls:
+        num = 0
+        for ans in poll.questions.first().answers.all():
+            num += ans.votes
+
+        answered_by.append(num)
+        
+    return render(request, 'my_polls/index.html', {'polls':polls, 'answered_by':answered_by})
 
 @login_required
 def create_poll(request):

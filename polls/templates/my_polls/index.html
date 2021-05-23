@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load my_polls_filters %}
 
 {% block title %} My polls {% endblock %}
 
@@ -21,7 +22,10 @@
             </button>
             <p class="text-success mt-1 mb-0 d-none success-message">URL copied successfully!</p>
 
-            <p class="card-text mt-2">Questions: {{poll.questions.all|length}}</p>
+            <p class="card-text mt-2 mb-0">Questions: {{poll.questions.all|length}}</p>
+            {% with people=answered_by|get_by_index:forloop.counter0 %}
+            <p class="card-text mt-0">Answered by {{people}} {% if people == 1 %} person {% else %} people {% endif %}</p>
+            {% endwith %}
 
             <div class="text-center">
                 <a href="{% url 'delete_poll' id=poll.id %}" class="btn btn-danger mx-2">Delete</a>
