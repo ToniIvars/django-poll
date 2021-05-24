@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='main_index'),
     path('answer/<int:id>', views.answer_poll, name='answer_poll'),
+    path('search', views.search, name='search'),
     path('my-polls/', include('my_polls.urls')),
     path('auth/', include('authentication.urls'))
 ]

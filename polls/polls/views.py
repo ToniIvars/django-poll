@@ -41,3 +41,14 @@ def answer_poll(request, id):
         return redirect('main_index')
 
     return render(request, 'polls/answer.html', {'poll':poll})
+
+@login_required
+def search(request):
+    if request.method == 'POST':
+        query = request.POST['query']
+
+        polls = Poll.objects.filter(title__icontains=query).exclude(author=User.objects.get(id=request.user.id))
+        return render(request, 'polls/search.html', {'polls':polls, 'query':query})
+
+    messages.error(request, 'Search a poll from the search bar')
+    return redirect('main_index')

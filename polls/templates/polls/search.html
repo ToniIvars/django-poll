@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Poll results {% endblock %}
+
+{% block style %} <link rel="stylesheet" href="{% static 'polls/index.css' %}"> {% endblock %}
+
+{% block content %}
+<h1 class="text-center">Polls with <strong>{{query}}</strong></h1>
+
+<div class="d-flex flex-wrap justify-content-center">
+    {% for poll in polls %}
+    <div class="poll-card card mx-3 mt-4">
+        <div class="card-body">
+            <a href="{% url 'answer_poll' id=poll.id %}" class="poll-link">
+                <h4 class="card-title">{{poll.title}}</h4>
+            </a>
+            <p class="card-text">Author: {{poll.author}}</p>
+        </div>
+    </div>
+    {% empty %}
+    <h2 class="mt-2">There are no polls available</h2>
+    {% endfor %}
+</div>
+{% endblock %}
