@@ -1,4 +1,13 @@
 {% load static %}
+<style>
+  #tooltip {
+    background-color: white;
+    border-radius: 50%;
+    border: none;
+    margin-left: 0.5rem;
+    font-weight: bold;
+  }
+</style>
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3 py-0">
     <a class="navbar-brand" href="{% url 'main_index' %}">
@@ -17,9 +26,16 @@
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
       </ul>
-      <form method="POST" action="{% url 'search' %}" class="form-inline my-2 my-md-0">
+      <form method="POST" action="{% url 'search' %}" class="my-2 my-md-0 d-flex align-items-center">
         {% csrf_token %}
         <input name="query" class="form-control" type="text" placeholder="Search">
+        <button type="button" id="tooltip" data-toggle="tooltip" data-placement="bottom" title="Use 'author:' to search by author">?</button>
       </form>
     </div>
 </nav>
+
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>

@@ -47,7 +47,11 @@ def search(request):
     if request.method == 'POST':
         query = request.POST['query']
 
-        polls = Poll.objects.filter(title__icontains=query).exclude(author=User.objects.get(id=request.user.id))
+        if 'author:' in query:
+            polls = Poll.objects.filter(author__username__icontains=query.split(':')[-1]).exclude(author=User.objects.get(id=request.user.id)).exclude(answered_by__username__exact=request.user.username)
+        else:
+            polls = Poll.objects.filter(title__icontains=query).exclude(author=User.objects.get(id=request.user.id)).exclude(answered_by__username__exact=request.user.username)
+
         return render(request, 'polls/search.html', {'polls':polls, 'query':query})
 
     messages.error(request, 'Search a poll from the search bar')
